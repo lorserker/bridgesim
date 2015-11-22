@@ -1,27 +1,28 @@
 import sys
-import random
 import time
 
+from redeal import *
 
-def count(known, total):
+def train_shape(known):
+    dealer = Deal.prepare({})
     t_start = time.time()
     n_correct = 0
     while True:
-        shape = []
-        
-        n = total
-        for _ in range(known):
-            i = random.randint(0, min(total // 2 + 1, total-sum(shape)))
-            shape.append(i)
-            n -= i
+        deal = dealer()
+        shape = [
+            len(deal.south.spades),
+            len(deal.south.hearts),
+            len(deal.south.diamonds),
+            len(deal.south.clubs)
+        ]
             
-        print(' '.join(map(str, shape)))
+        print(' '.join(map(str, shape[:known])))
         
         x = sys.stdin.readline()
         
         try:
             x = int(x)
-            if x == n:
+            if x == sum(shape[known:]):
                 n_correct += 1
             else:
                 print('wrong answer')
@@ -33,11 +34,7 @@ def count(known, total):
             break
     print('time\'s up!')        
     print('you got {} right'.format(n_correct))
-        
-
-
 
 if __name__ == '__main__':
     known = int(sys.argv[1])
-    total = int(sys.argv[2])
-    count(known, total)
+    train_shape(known)
