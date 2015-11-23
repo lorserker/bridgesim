@@ -47,4 +47,4 @@ def timed_drill(what, known):
 if __name__ == '__main__':
     what = sys.argv[1]
     known = int(sys.argv[2])
-    timed_drill(known)
+    timed_drill(what, known)
