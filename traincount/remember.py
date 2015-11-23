@@ -9,6 +9,7 @@ LOW = set(list('765432x'))
 def compare_hands(h1, h2):
     score = 0
     for suit1, suit2 in zip(h1, h2):
+        suit1, suit2 = suit1.upper(), suit2.upper()
         if len(suit1) != len(suit2):
             score -= 2
             continue
@@ -29,10 +30,15 @@ def recall_drill(tlook=5, n=10):
 
         print('\n')
         str_suits = [str(deal.south.spades), str(deal.south.hearts), str(deal.south.diamonds), str(deal.south.clubs)]
+        n_high_cards = 0
+        for s in str_suits:
+            for c in s:
+                if c in HIGH:
+                    n_high_cards += 1
         print(' '.join(str_suits))
         print('\n')
 
-        time.sleep(tlook)
+        time.sleep(tlook + n_high_cards)
 
         print(100*'\n')
 
